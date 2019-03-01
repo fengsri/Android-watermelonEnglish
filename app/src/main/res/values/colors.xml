@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1f72de</color>
+    <color name="colorPrimaryDark">#0559c6</color>
+    <color name="colorAccent">#41d104</color>
+    <color name="commom_backgroudcolor">#fcfcfc</color>
+    <color name="commom_textcolor">#2b2b2b</color>
+    <color name="commom_textcolor2">#fcfbfb</color>
+    <color name="commom_textcolor3">#1296db</color>
+</resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:id="@+id/practice_rheader"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:fitsSystemWindows="true">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/practice_header"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:fitsSystemWindows="true"/>
+
+        <com.example.asus.watermelonenglish.view.CircleIndicator
+            android:id="@+id/practice_header_indicator"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/practice_dh"
+        android:layout_below="@+id/practice_rheader">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/practice_daohang">
+            <TextView
+                android:id="@+id/practice_translate"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="翻译"
+                android:textColor="#5299f5"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/practice_ss"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="匹配"
+                android:textColor="@color/commom_textcolor"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/practice_ct"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="完形"
+                android:textColor="@color/commom_textcolor"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/practice_reader"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="阅读"
+                android:textColor="@color/commom_textcolor"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/practice_article"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="作文"
+                android:textColor="@color/commom_textcolor"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="3dp"
+            android:background="#5299f5"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/practice_daohang_move"
+            android:layout_below="@+id/practice_daohang"/>
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:layout_below="@+id/practice_dh"
+        android:id="@+id/practice_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

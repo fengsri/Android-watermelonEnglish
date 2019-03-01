@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WatermelonEnglish</string>
+    <string name="title_home">首页</string>
+    <string name="title_review">复习</string>
+    <string name="title_practice">练习</string>
+    <string name="title_self">我的</string>
+</resources>
