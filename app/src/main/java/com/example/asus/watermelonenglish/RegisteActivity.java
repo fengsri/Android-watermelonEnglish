@@ -34,6 +34,7 @@ public class RegisteActivity extends AppCompatActivity implements View.OnClickLi
     private EditText registe_name;
     private EditText registe_email;
     private EditText registe_pd;
+    private EditText registe_pd2;
     private EditText registe_school;
     private Spinner registe_level;
     private Button registe_bt;
@@ -41,8 +42,11 @@ public class RegisteActivity extends AppCompatActivity implements View.OnClickLi
     private String name;
     private String email;
     private String password;
+    private String password2;
     private String school;
     private String level;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class RegisteActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+
     private void init() {
         registe_name=findViewById(R.id.registe_name);
         registe_email=findViewById(R.id.registe_email);
@@ -62,6 +67,7 @@ public class RegisteActivity extends AppCompatActivity implements View.OnClickLi
         registe_level=findViewById(R.id.registe_level);
         registe_bt=findViewById(R.id.registe_bt);
         registe_pd=findViewById(R.id.registe_pd);
+        registe_pd2=findViewById(R.id.registe_pd2);
         registe_bt.setOnClickListener(this);
          /*设置数据源*/
         list.add("我的等级");
@@ -86,9 +92,77 @@ public class RegisteActivity extends AppCompatActivity implements View.OnClickLi
         switch (view.getId()){
             case R.id.registe_bt:{
                 name=registe_name.getText().toString();
+                if(name.equals("")) {
+                    Toast.makeText(RegisteActivity.this,"用户名不能为空！",Toast.LENGTH_SHORT).show();
+                    break;
+                }else{
+                    String re="[A-Za-z0-9]{4,10}";
+                    if(!name.matches(re)){
+                        Toast.makeText(RegisteActivity.this,"用户名由4-10个字母数字构成！",Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+
                 email=registe_email.getText().toString();
+                if(email.equals("")){
+                    Toast.makeText(RegisteActivity.this,"邮箱不能为空！",Toast.LENGTH_SHORT).show();
+                    break;
+                }else{
+                    String regex = "^(\\w)+@(\\w)+(\\.)\\w+\\.?\\w+";
+                    if(!email.matches(regex)){
+                        Toast.makeText(RegisteActivity.this,"邮箱格式不正确！",Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+
                 password=registe_pd.getText().toString();
+                password2=registe_pd2.getText().toString();
+                if(password.equals("")){
+                    Toast.makeText(RegisteActivity.this,"密码不能为空！",Toast.LENGTH_SHORT).show();
+                    break;
+                }else{
+                    String re="[A-Za-z0-9]{4,10}";
+                    if(!password.matches(re)){
+                        Toast.makeText(RegisteActivity.this,"密码由4-10个字母数字构成！",Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+                if(password2.equals("")){
+                    Toast.makeText(RegisteActivity.this,"确认密码不能为空！",Toast.LENGTH_SHORT).show();
+                    break;
+                }else{
+                    String re="[A-Za-z0-9]{4,10}";
+                    if(!password2.matches(re)){
+                        Toast.makeText(RegisteActivity.this,"确认密码由4-10个字母数字构成！",Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+                if(!password2.equals(password)){
+                    Toast.makeText(RegisteActivity.this,"密码不一致！",Toast.LENGTH_SHORT).show();
+                    break;
+                }
+
                 school=registe_school.getText().toString();
+                if(school.equals("")){
+                    Toast.makeText(RegisteActivity.this,"学校不能为空！",Toast.LENGTH_SHORT).show();
+                    break;
+                }else{
+                    int tg1=1;
+                    int tg2=1;
+                    if(!school.contains("大学")){
+                        tg1=0;
+                    }
+                    if(!school.contains("学院")){
+                        tg2=0;
+                    }
+                    if(tg1==0 && tg2==0) {
+                        Toast.makeText(RegisteActivity.this, "学校不正确！", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+
+
+
                 Calendar calendar = Calendar.getInstance();
                 int yearTag = calendar.get(Calendar.YEAR);//当前年
                 int monthTag = calendar.get(Calendar.MONTH)+1;//当前月
@@ -101,6 +175,7 @@ public class RegisteActivity extends AppCompatActivity implements View.OnClickLi
                 user.setUserSchool(school);
                 user.setUserHeaderPic("null");
                 user.setUserLevel(level);
+                user.setEmail(email);
                 user.setUserSignature("null");
                 user.setUserUseDate(date);
                 user.signUp(new SaveListener<User>() {
@@ -110,12 +185,34 @@ public class RegisteActivity extends AppCompatActivity implements View.OnClickLi
                             Intent intent=new Intent(RegisteActivity.this,LoginUser.class);
                             startActivity(intent);
                             finish();
-                           Toast.makeText(RegisteActivity.this,user.toString(),Toast.LENGTH_SHORT).show();
                         } else {
-
+                            Toast.makeText(RegisteActivity.this,"注册失败:用户名或邮箱已存在",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
+//                final User user = new User();
+//                user.setUsername(name);
+//                user.setPassword(password);
+//                user.setUserSchool(school);
+//                user.setUserHeaderPic("null");
+//                user.setUserLevel(level);
+//                user.setEmail(email);
+//                user.setUserSignature("null");
+//                user.setUserUseDate(date);
+//                Toast.makeText(RegisteActivity.this,"前："+user.toString(),Toast.LENGTH_SHORT).show();
+//
+//                user.signUp(new SaveListener<User>() {
+//                    @Override
+//                    public void done(User user, BmobException e) {
+//                        if (e == null) {
+//
+//                           Toast.makeText(RegisteActivity.this,user.toString(),Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(RegisteActivity.this,"注册失败"+e.toString(),Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
 
                 break;
             }

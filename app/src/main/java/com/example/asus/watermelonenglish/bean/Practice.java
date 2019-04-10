@@ -1,12 +1,13 @@
 package com.example.asus.watermelonenglish.bean;
 
+import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobUser;
 
 /**
  * Created by asus on 2019/2/25.
  */
 
-public class Practice extends BmobUser {
+public class Practice extends BmobObject {
     private String practiceTitle;
     private String practiceTypeId;
     private String practiceText;

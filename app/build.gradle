@@ -1,17 +1,22 @@
 apply plugin: 'com.android.application'
 
 android {
+    sourceSets.main.jniLibs.srcDirs = ['libs']
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion 26
     defaultConfig {
         sourceSets.main.jniLibs.srcDirs = ['libs']
         applicationId "com.example.asus.watermelonenglish"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary= true
+
+        ndk {
+            abiFilter "armeabi-v7a"
+        }
     }
     buildTypes {
         release {
@@ -19,6 +24,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {

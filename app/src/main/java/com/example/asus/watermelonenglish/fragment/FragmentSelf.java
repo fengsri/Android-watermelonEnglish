@@ -12,15 +12,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.asus.watermelonenglish.MainActivity;
 import com.example.asus.watermelonenglish.R;
 import com.example.asus.watermelonenglish.SelfShowActivity;
-import com.example.asus.watermelonenglish.bean.Practice;
 import com.example.asus.watermelonenglish.bean.User;
 import com.example.asus.watermelonenglish.bean.WordCollection;
+import com.example.asus.watermelonenglish.util.UserUtil;
 
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,13 +32,14 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobQueryResult;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SQLQueryListener;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by asus on 2019/2/8.
  */
 
 public class FragmentSelf extends Fragment implements View.OnClickListener{
-    private Context context;
+    private Context context ;
     private User user;
 
     private TextView dayCounttext;
@@ -47,6 +48,8 @@ public class FragmentSelf extends Fragment implements View.OnClickListener{
     private int dayCount=0;
     private int wordCount=0;
 
+    private CircleImageView headerImage;
+    private String headerPic="";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,11 +63,13 @@ public class FragmentSelf extends Fragment implements View.OnClickListener{
         View view=LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_self,container,false);
         //初始化
         init(view);
+
         return view;
     }
 
     private void init(View view) {
-        view.findViewById(R.id.fragment_self_image).setOnClickListener(this);
+        headerImage = view.findViewById(R.id.fragment_self_image);
+        headerImage.setOnClickListener(this);
         view.findViewById(R.id.fragment_self_jibenxinxi).setOnClickListener(this);
         view.findViewById(R.id.fragment_self_dirction).setOnClickListener(this);
         view.findViewById(R.id.fragment_self_rank).setOnClickListener(this);
@@ -72,22 +77,32 @@ public class FragmentSelf extends Fragment implements View.OnClickListener{
         dayCounttext=view.findViewById(R.id.fragment_self_day);
         wordCounttext=view.findViewById(R.id.fragment_self_wordcount);
 
-        String startDay=user.getUserUseDate();
-        Calendar calendar = Calendar.getInstance();
-        int yearTag = calendar.get(Calendar.YEAR);//当前年
-        int monthTag = calendar.get(Calendar.MONTH)+1;//当前月
-        int dayTag = calendar.get(Calendar.DAY_OF_MONTH);//当前日
-        String endDay=yearTag+"-"+(monthTag)+"-"+dayTag;
-
-        dayCount=this.longOfTwoDate(startDay,endDay);
+        dayCount=UserUtil.longOfTwoDate(user);
         dayCounttext.setText(dayCount+"");
+
+        headerPic=user.getUserHeaderPic().trim();
+        Glide.with(context)
+                .load(headerPic)
+                .placeholder(R.drawable.slef_header)
+                .error(R.drawable.slef_header)
+                .dontAnimate()
+                .into(headerImage);
+       // Toast.makeText(context,"headerPic:"+headerPic,Toast.LENGTH_SHORT).show();
+        Log.e("headerPic:",headerPic);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Glide.with(context)
+                .load(headerPic)
+                .dontAnimate()
+                .placeholder(R.drawable.slef_header)
+                .error(R.drawable.slef_header)
+                .into(headerImage);
+
         String id=user.getObjectId();
-        String bql ="select * from wordCollection where userId= ?";//查询所有的游戏得分记录
+        String bql ="select * from WordCollection where userId= ?";//查询所有的游戏得分记录
         new BmobQuery<WordCollection>().doSQLQuery(bql,new SQLQueryListener<WordCollection>(){
             @Override
             public void done(BmobQueryResult<WordCollection> result, BmobException e) {
@@ -120,6 +135,7 @@ public class FragmentSelf extends Fragment implements View.OnClickListener{
                 bundle.putInt("key",0);
                 intent.putExtra("data",bundle);
                 context.startActivity(intent);
+                ((MainActivity)context).finish();
                 break;
             }
             case R.id.fragment_self_dirction:{ //选择方向
@@ -128,6 +144,7 @@ public class FragmentSelf extends Fragment implements View.OnClickListener{
                 bundle.putInt("key",1);
                 intent.putExtra("data",bundle);
                 context.startActivity(intent);
+                ((MainActivity)context).finish();
                 break;
             }
             case R.id.fragment_self_rank:{ //排名
@@ -136,38 +153,21 @@ public class FragmentSelf extends Fragment implements View.OnClickListener{
                 bundle.putInt("key",2);
                 intent.putExtra("data",bundle);
                 context.startActivity(intent);
+                ((MainActivity)context).finish();
                 break;
             }
             case R.id.fragment_self_shezhi:{ //设置
                 Intent intent=new Intent(context, SelfShowActivity.class);
                 Bundle bundle=new Bundle();
                 bundle.putInt("key",3);
+                bundle.putString("xiu","0");
                 intent.putExtra("data",bundle);
                 context.startActivity(intent);
+                ((MainActivity)context).finish();
                 break;
             }
         }
     }
 
-    public int longOfTwoDate(String first, String second){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date firstdate = null;
-        Date seconddate = null;
-        try {
-            firstdate = format.parse(first);
-            seconddate = format.parse(second);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(firstdate);
-        int cnt = 0;
-        while (calendar.getTime().compareTo(seconddate) != 0) {
-            calendar.add(Calendar.DATE, 1);
-            cnt++;
-        }
-        return cnt;
-    }
 
 }

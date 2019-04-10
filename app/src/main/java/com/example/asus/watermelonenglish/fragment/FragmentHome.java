@@ -1,10 +1,12 @@
 package com.example.asus.watermelonenglish.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.asus.watermelonenglish.MainActivity;
 import com.example.asus.watermelonenglish.R;
+import com.example.asus.watermelonenglish.SelfShowActivity;
 import com.example.asus.watermelonenglish.WordActivity;
 import com.example.asus.watermelonenglish.bean.User;
 import com.example.asus.watermelonenglish.bean.Word;
@@ -80,7 +83,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
         super.onResume();
         String id=user.getObjectId();
 
-        String bql ="select * from wordCollection where userId= ?";//查询所有的游戏得分记录
+        String bql ="select * from WordCollection where userId= ?";//查询所有的游戏得分记录
         new BmobQuery<WordCollection>().doSQLQuery(bql,new SQLQueryListener<WordCollection>(){
             @Override
             public void done(BmobQueryResult<WordCollection> result, BmobException e) {
@@ -101,7 +104,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
             }
         },id);
 
-        String bql2 ="select * from wordCollection where userId= ? and wordCollectionDate=?";//查询所有的游戏得分记录
+        String bql2 ="select * from WordCollection where userId= ? and wordCollectionDate=?";//查询所有的游戏得分记录
         new BmobQuery<WordCollection>().doSQLQuery(bql2,new SQLQueryListener<WordCollection>(){
             @Override
             public void done(BmobQueryResult<WordCollection> result, BmobException e) {
@@ -171,6 +174,9 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
 
         word_countnew=view.findViewById(R.id.home_wordcount_new);
         progressBar=view.findViewById(R.id.home_progressbar);
+        view.findViewById(R.id.home_xiugaijihua).setOnClickListener(this);
+        view.findViewById(R.id.home_daka_image).setOnClickListener(this);
+        view.findViewById(R.id.home_daka_text).setOnClickListener(this);
     }
 
     @Override
@@ -193,7 +199,49 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
                 ((MainActivity)context).onclickSet(3);
                 break;
             }
-
+            case R.id.home_xiugaijihua:{  //修改计划
+                Intent intent=new Intent(context, SelfShowActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putInt("key",3);
+                bundle.putString("xiu","1");
+                intent.putExtra("data",bundle);
+                context.startActivity(intent);
+                ((MainActivity)context).finish();
+                break;
+            }
+            case R.id.home_daka_image:{
+                daka();
+                break;
+            }
+            case R.id.home_daka_text:{
+                daka();
+                break;
+            }
+            default:
+                break;
         }
+    }
+
+    public void daka(){
+        final String[] items = new String[] { "微信朋友圈","微信群聊" ,"QQ群聊","QQ空间"};
+        // 创建对话框构建器
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        // 设置参数
+        builder.setIcon(R.drawable.share).setTitle("分享")
+                .setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0){
+                            ((MainActivity)(context)).shareText("我坚持打卡学习："+wordCount+"个单词",0);
+                        }else if(which==1){
+                            ((MainActivity)(context)).shareText("我坚持打卡学习："+wordCount+"个单词",1);
+                        }else if(which==2){
+                            ((MainActivity)(context)).shareToQQ("我坚持打卡学习："+wordCount+"个单词");
+                        }else if(which==3){
+                            ((MainActivity)(context)).shareToQZone("我坚持打卡学习："+wordCount+"个单词");
+                        }
+                    }
+                });
+        builder.create().show();
     }
 }

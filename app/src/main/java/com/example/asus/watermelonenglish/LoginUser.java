@@ -64,18 +64,20 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
             case R.id.login_user_bt:{
                 name_str=name.getText().toString();
                 password_str=password.getText().toString();
+
                 //此处替换为你的用户名密码
                 BmobUser.loginByAccount(name_str, password_str, new LogInListener<User>() {
                     @Override
                     public void done(User user, BmobException e) {
                         if (e == null) {
                             Intent intent=new Intent(LoginUser.this,MainActivity.class);
+                            intent.putExtra("ato",0);
                             startActivity(intent);
                             finish();
                         } else {
                             name.setText("");
                             password.setText("");
-                            Toast.makeText(LoginUser.this,"登录失败",Toast.LENGTH_SHORT).show();
+                           Toast.makeText(LoginUser.this,"用户名或密码错误",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

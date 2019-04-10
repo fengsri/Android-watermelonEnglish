@@ -38,7 +38,8 @@ public class LuncherActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if(finalTag ==0){
-                    startActivity(new Intent(LuncherActivity.this,LoginActivity.class));
+                    Intent intent=new Intent(LuncherActivity.this,LoginActivity.class);
+                    startActivity(intent);
                     finish();
                 }else{
                     startActivity(new Intent(LuncherActivity.this,MainActivity.class));

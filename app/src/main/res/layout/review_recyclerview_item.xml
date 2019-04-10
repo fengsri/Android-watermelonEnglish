@@ -95,6 +95,7 @@
             android:layout_below="@+id/review_recyclerview_title"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
+            android:id="@+id/review_recyclerview_shoucangtext"
             android:layout_toRightOf="@+id/review_recyclerview_shoucang"
             android:text="收藏" />
 

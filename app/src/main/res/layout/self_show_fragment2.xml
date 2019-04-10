@@ -31,8 +31,9 @@
             android:layout_height="48dp"
             android:gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:text="当前掌握词汇200个"
+            android:text="当前掌握词汇0个"
             android:textSize="17sp"
+            android:id="@+id/self_fragment2_count"
             android:textColor="@color/commom_textcolor"/>
         <TextView
             android:layout_width="match_parent"

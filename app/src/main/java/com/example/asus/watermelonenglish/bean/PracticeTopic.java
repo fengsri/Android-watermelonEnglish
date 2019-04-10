@@ -3,13 +3,14 @@ package com.example.asus.watermelonenglish.bean;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
+import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobUser;
 
 /**
  * Created by asus on 2019/2/25.
  */
 
-public class PracticeTopic  extends BmobUser {
+public class PracticeTopic  extends BmobObject {
 
     private String right;
     private String practiceTopicId;

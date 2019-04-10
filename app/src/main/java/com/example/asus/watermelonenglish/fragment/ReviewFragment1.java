@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +24,22 @@ import com.example.asus.watermelonenglish.MainActivity;
 import com.example.asus.watermelonenglish.R;
 import com.example.asus.watermelonenglish.WordActivity;
 import com.example.asus.watermelonenglish.bean.User;
+import com.example.asus.watermelonenglish.bean.Word;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobQueryResult;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SQLQueryListener;
 
 /**
  * Created by asus on 2019/2/8.
@@ -73,6 +82,7 @@ public class ReviewFragment1 extends Fragment implements View.OnClickListener{
     private int cardt3=0;
     private int cardt4=0;
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +113,6 @@ public class ReviewFragment1 extends Fragment implements View.OnClickListener{
         }
         cardt3=200;
         cardt4=50;
-
     }
     @Nullable
     @Override
@@ -173,12 +182,14 @@ public class ReviewFragment1 extends Fragment implements View.OnClickListener{
         intent.putExtra("tag",1);
         Bundle bundle=null;
         String todayCount="";
+        int sway = 1;
         switch (view.getId()){
             case R.id.review_slzw:{
                 objectAnimator = ObjectAnimator.ofFloat(review_slzw, "scaleX", 0.7F, 1F).setDuration(500);
                 objectAnimator2 = ObjectAnimator.ofFloat(review_slzw, "scaleY", 0.7F, 1F).setDuration(500);
                 bundle=new Bundle();
                 todayCount=cardText1.getText().toString();
+                sway = 1;
                 break;
             }
             case R.id.review_sc:{
@@ -186,6 +197,7 @@ public class ReviewFragment1 extends Fragment implements View.OnClickListener{
                 objectAnimator2 = ObjectAnimator.ofFloat(review_sc, "scaleY", 0.7F, 1F).setDuration(500);
                 bundle=new Bundle();
                 todayCount=cardText2.getText().toString();
+                sway = 2;
                 break;
             }
             case R.id.review_gpch:{
@@ -193,6 +205,7 @@ public class ReviewFragment1 extends Fragment implements View.OnClickListener{
                 objectAnimator2 = ObjectAnimator.ofFloat(review_gpch, "scaleY", 0.7F, 1F).setDuration(500);
                 bundle=new Bundle();
                 todayCount=cardText3.getText().toString();
+                sway = 3;
                 break;
             }
             case R.id.review_sj:{
@@ -200,6 +213,7 @@ public class ReviewFragment1 extends Fragment implements View.OnClickListener{
                 objectAnimator2 = ObjectAnimator.ofFloat(review_sj, "scaleY", 0.7F, 1F).setDuration(500);
                 bundle=new Bundle();
                 todayCount=cardText4.getText().toString();
+                sway = 4;
                 break;
             }
             case R.id.review_clock:{
@@ -219,6 +233,7 @@ public class ReviewFragment1 extends Fragment implements View.OnClickListener{
             }
         }
         if(bundle!=null) {
+            intent.putExtra("sway",sway);
             intent.putExtra("todayCount",Integer.parseInt(todayCount));
             objectAnimator.addListener(new AnimatorListenerAdapter() {
                 @Override
@@ -231,5 +246,4 @@ public class ReviewFragment1 extends Fragment implements View.OnClickListener{
             objectAnimator2.start();
         }
     }
-
 }

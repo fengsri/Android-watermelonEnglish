@@ -7,6 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:id="@+id/self_fragment4_school_l"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="vertical">
         <TextView
@@ -27,6 +28,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:id="@+id/self_fragment4_level_l"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="vertical">
         <TextView
@@ -47,25 +49,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:text="设置我的签名"
-            android:textSize="17sp"
-            android:textColor="@color/commom_textcolor"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#a9a9a9"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:id="@+id/self_fragment4_nandu"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="vertical">
         <TextView

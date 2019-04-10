@@ -10,14 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.asus.watermelonenglish.MainActivity;
 import com.example.asus.watermelonenglish.PracticeActivity;
 import com.example.asus.watermelonenglish.R;
 import com.example.asus.watermelonenglish.bean.Practice;
+import com.example.asus.watermelonenglish.bean.PracticeCollection;
+import com.example.asus.watermelonenglish.bean.User;
 import com.example.asus.watermelonenglish.myclass.Pract;
 
+import java.util.Calendar;
 import java.util.List;
+
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by asus on 2019/2/15.
@@ -60,7 +69,7 @@ public class ReviewRecyclerviewAdapter extends RecyclerView.Adapter<ReviewRecycl
         holder.shareImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String[] items = new String[] { "微信朋友圈","微信群聊" };
+                final String[] items = new String[] { "微信朋友圈","微信群聊","QQ群聊","QQ空间"};
                 // 创建对话框构建器
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 // 设置参数
@@ -72,6 +81,10 @@ public class ReviewRecyclerviewAdapter extends RecyclerView.Adapter<ReviewRecycl
                                     ((MainActivity)(context)).shareText("今天我在复习："+ practice.getPracticeTitle(),0);
                                 }else if(which==1){
                                     ((MainActivity)(context)).shareText("今天我在复习："+ practice.getPracticeTitle(),1);
+                                }else if(which==2){
+                                    ((MainActivity)(context)).shareToQQ("今天我在练习："+ practice.getPracticeTitle());
+                                }else if(which==3){
+                                    ((MainActivity)(context)).shareToQZone("今天我在练习："+ practice.getPracticeTitle());
                                 }
                             }
                         });
@@ -81,7 +94,7 @@ public class ReviewRecyclerviewAdapter extends RecyclerView.Adapter<ReviewRecycl
         holder.shareText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String[] items = new String[] { "微信朋友圈","微信群聊" };
+                final String[] items = new String[] { "微信朋友圈","微信群聊","QQ群聊","QQ空间"};
                 // 创建对话框构建器
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 // 设置参数
@@ -93,12 +106,50 @@ public class ReviewRecyclerviewAdapter extends RecyclerView.Adapter<ReviewRecycl
                                     ((MainActivity)(context)).shareText("今天我在复习："+ practice.getPracticeTitle(),0);
                                 }else if(which==1){
                                     ((MainActivity)(context)).shareText("今天我在复习："+ practice.getPracticeTitle(),1);
+                                }else if(which==2){
+                                    ((MainActivity)(context)).shareToQQ("今天我在练习："+ practice.getPracticeTitle());
+                                }else if(which==3){
+                                    ((MainActivity)(context)).shareToQZone("今天我在练习："+ practice.getPracticeTitle());
                                 }
                             }
                         });
                 builder.create().show();
             }
         });
+        holder.cangText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shoucang(practice.getPracticeId());
+            }
+        });
+        holder.cangImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shoucang(practice.getPracticeId());
+            }
+        });
+    }
+
+    public void shoucang(String practiceId){
+        User user = BmobUser.getCurrentUser(User.class);
+        if(null != user){ //未登录
+            String userId=user.getObjectId();
+            PracticeCollection p2 = new PracticeCollection();
+            p2.setUserId(userId);
+            p2.setPracticeId(practiceId);
+            p2.setPracticeDate(getTodayDate());
+            p2.save(new SaveListener<String>() {
+                @Override
+                public void done(String objectId,BmobException e) {
+                    if(e==null){
+                        Toast.makeText(context,"收藏成功",Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(context,"已经收藏",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
     }
 
     @Override
@@ -112,13 +163,25 @@ public class ReviewRecyclerviewAdapter extends RecyclerView.Adapter<ReviewRecycl
 
         ImageView shareImage;
         TextView shareText;
+        ImageView cangImage;
+        TextView cangText;
         public ViewHolder(View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.review_recyclerview_image);
             textView=itemView.findViewById(R.id.review_recyclerview_title);
             shareImage=itemView.findViewById(R.id.review_recyclerview_shareimage);
             shareText=itemView.findViewById(R.id.review_recyclerview_share);
+            cangImage=itemView.findViewById(R.id.review_recyclerview_shoucang);
+            cangText=itemView.findViewById(R.id.review_recyclerview_shoucangtext);
         }
+    }
+
+    public String getTodayDate(){
+        Calendar calendar = Calendar.getInstance();
+        int yearTag = calendar.get(Calendar.YEAR);//当前年
+        int monthTag = calendar.get(Calendar.MONTH)+1;//当前月
+        int dayTag = calendar.get(Calendar.DAY_OF_MONTH);//当前日
+        return yearTag+"-"+monthTag+"-"+dayTag;
     }
 
 }

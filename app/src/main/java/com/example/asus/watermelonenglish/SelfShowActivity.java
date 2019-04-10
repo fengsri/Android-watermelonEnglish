@@ -22,6 +22,7 @@ import com.example.asus.watermelonenglish.fragment.SelfShowFragment4;
 
 public class SelfShowActivity extends AppCompatActivity {
     private int key;
+    private String xiu="0";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,11 +50,29 @@ public class SelfShowActivity extends AppCompatActivity {
             }
             case android.R.id.home:{
              //   Toast.makeText(SelfShowActivity.this,"aaa",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(SelfShowActivity.this,MainActivity.class);
+                if(xiu.equals("0")) {
+                    intent.putExtra("ato", 1);
+                }else{
+                    intent.putExtra("ato", 2);
+                }
+                startActivity(intent);
                 finish();
                 break;
             }
         }
         return true;
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(SelfShowActivity.this,MainActivity.class);
+        if(xiu.equals("0")) {
+            intent.putExtra("ato", 1);
+        }else{
+            intent.putExtra("ato", 2);
+        }
+        startActivity(intent);
+        finish();
     }
 
     private void initview() {
@@ -70,7 +89,7 @@ public class SelfShowActivity extends AppCompatActivity {
             }
             case 2:{
                 replace(new SelfShowFragment3());
-                this.setTitle("我的排名");
+                this.setTitle("我的得分");
                 break;
             }
             case 3:{
@@ -85,15 +104,15 @@ public class SelfShowActivity extends AppCompatActivity {
         Intent intent=this.getIntent();
         Bundle bundle=intent.getBundleExtra("data");
         key=(int)bundle.get("key");
+        if(key==3){
+            xiu = bundle.getString("xiu");
+        }
     }
     //锁片切换
     private void replace(Fragment fragment){
         FragmentManager manager=getSupportFragmentManager();
         FragmentTransaction replace = manager.beginTransaction().replace(R.id.self_show_fragment, fragment);
         replace.commit();
-    }
-    public void out(){
-        finish();
     }
 
 }

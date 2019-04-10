@@ -16,7 +16,7 @@
             android:layout_height="80dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
-            android:src="@drawable/slef_header" />
+            />
         <LinearLayout
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -162,7 +162,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我的排名"
+            android:text="我的得分"
             android:layout_toRightOf="@+id/fragment_self_rank_image"
             android:layout_marginLeft="17dp"
             android:layout_marginTop="7dp"

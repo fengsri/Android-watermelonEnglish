@@ -95,6 +95,7 @@
                     android:layout_height="25dp"
                     android:text="修改计划"
                     android:gravity="center"
+                    android:id="@+id/home_xiugaijihua"
                     android:background="@drawable/home_xiugaijihua"
                     android:layout_alignParentRight="true"
                     android:layout_margin="20dp"/>
@@ -138,6 +139,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:id="@+id/home_daka_image"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="40dp"
@@ -145,10 +147,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="单词列表"
+                    android:text="打卡"
+                    android:id="@+id/home_daka_text"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="35dp"
-                    android:layout_marginRight="20dp"/>
+                    android:layout_marginRight="35dp"/>
                 <ProgressBar
                     android:layout_width="match_parent"
                     android:layout_height="20dp"

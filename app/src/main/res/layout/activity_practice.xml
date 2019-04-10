@@ -86,7 +86,7 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="输入答案答案"
+                        android:hint="答案格式：1-a,2-b,3-c,4-d"
                         android:textSize="15sp"
                         android:padding="10dp"
                         android:id="@+id/practice_my_answer"
@@ -94,6 +94,15 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/write_bg1"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"
+                        android:id="@+id/practice_answer_check"
+                        android:layout_marginBottom="20dp"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

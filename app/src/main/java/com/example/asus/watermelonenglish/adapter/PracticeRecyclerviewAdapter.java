@@ -60,7 +60,7 @@ public class PracticeRecyclerviewAdapter extends RecyclerView.Adapter<PracticeRe
         holder.shareImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String[] items = new String[] { "微信朋友圈","微信群聊" };
+                final String[] items = new String[] { "微信朋友圈","微信群聊","QQ群聊","QQ空间"};
                 // 创建对话框构建器
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 // 设置参数
@@ -72,6 +72,10 @@ public class PracticeRecyclerviewAdapter extends RecyclerView.Adapter<PracticeRe
                                     ((MainActivity)(context)).shareText("今天我在练习："+ practice.getPracticeTitle(),0);
                                 }else if(which==1){
                                     ((MainActivity)(context)).shareText("今天我在练习："+ practice.getPracticeTitle(),1);
+                                }else if(which==2){
+                                    ((MainActivity)(context)).shareToQQ("今天我在练习："+ practice.getPracticeTitle());
+                                }else if(which==3){
+                                    ((MainActivity)(context)).shareToQZone("今天我在练习："+ practice.getPracticeTitle());
                                 }
                             }
                         });
@@ -81,7 +85,7 @@ public class PracticeRecyclerviewAdapter extends RecyclerView.Adapter<PracticeRe
         holder.shareText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String[] items = new String[] { "微信朋友圈","微信群聊" };
+                final String[] items = new String[] { "微信朋友圈","微信群聊","QQ群聊","QQ空间"};
                 // 创建对话框构建器
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 // 设置参数
@@ -93,6 +97,10 @@ public class PracticeRecyclerviewAdapter extends RecyclerView.Adapter<PracticeRe
                                     ((MainActivity)(context)).shareText("今天我在练习："+practice.getPracticeTitle(),0);
                                 }else if(which==1){
                                     ((MainActivity)(context)).shareText("今天我在练习："+ practice.getPracticeTitle(),1);
+                                }else if(which==2){
+                                    ((MainActivity)(context)).shareToQQ("今天我在练习："+ practice.getPracticeTitle());
+                                }else if(which==3){
+                                    ((MainActivity)(context)).shareToQZone("今天我在练习："+ practice.getPracticeTitle());
                                 }
                             }
                         });
