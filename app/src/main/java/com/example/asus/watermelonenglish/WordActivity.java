@@ -182,7 +182,7 @@ public class WordActivity extends AppCompatActivity implements View.OnClickListe
 
     public void getWordData(final int sway){
         BmobQuery<Word> query1 = new BmobQuery<>();
-        query1.setLimit(1000).findObjects(new FindListener<Word>() {
+        query1.setLimit(4000).findObjects(new FindListener<Word>() {
             @Override
             public void done(List<Word> list1, BmobException e) {
                // Toast.makeText(WordActivity.this,"查询成功:"+list1.size(),Toast.LENGTH_SHORT).show();

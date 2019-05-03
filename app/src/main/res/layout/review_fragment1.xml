@@ -189,7 +189,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/card_bg4"
+                android:background="@drawable/review_four_bg"
                 android:orientation="vertical">
 
                 <ImageView
@@ -234,7 +234,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/card_bg1"
+                android:background="@drawable/review_four_bg"
                 android:orientation="vertical">
 
                 <ImageView
@@ -278,7 +278,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/card_bg2"
+                android:background="@drawable/review_four_bg"
                 android:orientation="vertical">
 
                 <ImageView
@@ -323,7 +323,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/card_bg3"
+                android:background="@drawable/review_four_bg"
                 android:orientation="vertical">
 
                 <ImageView
